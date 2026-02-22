@@ -1,49 +1,58 @@
-# 🚀 Contract Generation System: Da processo manuale a Codice 📄⚖️
+# 🚀 Contract Generation System: From Manual Process to Code 📄⚖️
 
-Recentemente, ho sviluppato per **API s.r.l.** un sistema end-to-end per ottimizzare la creazione e l'invio di contratti aziendali tramite e-mail. L'obiettivo era ambizioso: trasformare un'operazione burocratica manuale e ripetitiva in un flusso istantaneo, riducendo quasi a zero il margine di errore.
+Recently, I developed an end-to-end system for **API s.r.l.** to optimize the creation and emailing of corporate contracts. The goal was ambitious: to transform a repetitive and manual bureaucratic task into an instantaneous workflow, reducing the margin of error to almost zero.
 
-## 🔍 Panoramica del Progetto
-Il sistema gestisce l'intero ciclo di vita del documento. L'architettura del codice è snella: un ciclo ben strutturato che utilizza la variabile **x** per scorrere i dati dei presidi e iniettarli dinamicamente in un modello HTML. 
+## 🔍 Project Overview
+The system manages the document's entire lifecycle. The code architecture is lean: a well-structured loop that uses the variable **x** to iterate through the facility data and dynamically insert it into an HTML template. 
 
-Il flusso parte dalla comoda compilazione di un **Google Form** da parte dell'operatore, che archivia già in automatico le risposte su un database **Google Sheets** per garantire scalabilità. All'invio del modulo, si innesca un trigger su **Google Apps Script** che:
-1. Preleva i dati appena salvati nel database.
-2. Compila automaticamente il template HTML del contratto.
-3. Genera il documento in formato PDF.
-4. Invia una mail preimpostata e personalizzata al cliente con il contratto allegato in tempo reale.
+The workflow starts with the operator easily filling out a **Google Form**, which automatically stores the responses in a **Google Sheets** database to ensure scalability. Upon form submission, a trigger is fired in **Google Apps Script** that:
+1. Retrieves the newly saved data from the database.
+2. Automatically populates the HTML contract template.
+3. Generates the document in PDF format.
+4. Sends a pre-configured and personalized email to the client with the contract attached in real time.
 
-L'unica operazione manuale rimasta è il rapido inserimento dei dati iniziali tramite il form! Questa compilazione è molto più comoda rispetto ad una tramite caselle di testo su un programma tradizionale come Word o PDF.
+The only manual operation left is the quick initial data entry via the form! This input method is far more convenient than using text boxes in traditional software like Word or PDF.
 
-## ⚙️ Funzionalità Chiave
-* **Workflow Automation**: Integrazione fluida tra Google Forms e Google Apps Script per il trasferimento dei dati in tempo reale.
-* **Efficienza Operativa**: Generazione automatica di PDF tramite trigger e invio contestuale via e-mail, riducendo drasticamente i tempi di elaborazione.
-* **Database Integrato**: Un foglio Google Sheets raccoglie in automatico tutti i dati dei clienti e lo storico dei contratti, garantendo la totale scalabilità del progetto.
+## ⚙️ Key Features
+* **Workflow Automation**: Seamless integration between Google Forms and Google Apps Script for real-time data transfer.
+* **Operational Efficiency**: Automatic PDF generation via triggers and simultaneous email dispatch, drastically reducing processing times.
+* **Integrated Database**: A Google Sheet automatically collects all client data and contract history, ensuring the project's total scalability.
 
-## 🛠️ Stack Tecnologico
+## 🛠️ Tech Stack
 * **Core Logic**: Google Apps Script (JavaScript-based).
-* **UI/Templating**: HTML5 e CSS3 per layout professionali e ottimizzati per la stampa A4.
+* **UI/Templating**: HTML5 and CSS3 for professional layouts optimized for A4 printing.
 * **Cloud Integration**: Google Workspace APIs (Forms, Sheets, Drive & Gmail).
-* **AI Support**: Utilizzo di modelli LLM per il refactoring del codice, l'adattamento ai servizi Google e l'ottimizzazione del template HTML.
+* **AI Support**: Leveraging LLM models for code refactoring, adapting to Google services, and optimizing the HTML template.
 
-## ⚙️ Installazione e Configurazione
-Per rendere operativo il sistema su un nuovo account Google Workspace, segui questi passaggi:
+## ⚙️ Installation and Setup
+To make the system operational on a new Google Workspace account, follow these steps:
 
-1. **Creazione del Modulo**: Crea un Google Form con i campi necessari (Dati utente, email, lista presidi, ecc.) e collegalo a un nuovo Google Sheet.
-2. **Accesso all'Editor**: Dal Google Sheet, clicca su `Estensioni` > `Apps Script` per aprire l'ambiente di sviluppo.
-3. **Inserimento File**:
-   * Rinomina il file predefinito `Codice.gs` in `trigger.gs` e incolla il codice presente in questo repository.
-   * Crea un nuovo file HTML chiamandolo esattamente `modello.html` e incolla il codice del template sviluppato.
-4. **Configurazione delle Variabili**: All'interno di `trigger.gs`, assicurati che gli indici delle colonne corrispondano a quelli del tuo foglio di calcolo.
-5. **Impostazione del Trigger**:
-   * Nell'editor di Apps Script, clicca sull'icona **Attivatori** (l'icona della sveglia a sinistra).
-   * Clicca su **Aggiungi attivatore**.
-   * Seleziona la funzione principale, imposta "Sorgente dell'evento" su **Dal modulo** e "Tipo di evento" su **All'invio del modulo**.
-6. **Autorizzazione**: Esegui manualmente una funzione qualsiasi dallo script per la prima volta per fornire i permessi necessari a Google Workspace (Gmail, Drive, Sheets).
+1. **Form Creation**: Create a Google Form with the necessary fields (User data, email, list of facilities, etc.) and link it to a new Google Sheet.
+2. **Editor Access**: From the Google Sheet, click on `Extensions` > `Apps Script` to open the development environment.
+3. **File Insertion**:
+   * Paste the code found in `trigger.gs` from this repository.
+   * Create a new HTML file naming it exactly `modello.html` and paste the developed template code.
+4. **Variable Configuration**: Inside `trigger.gs`, ensure that the column indices match those in your spreadsheet.
+5. **Trigger Setup**:
+   * In the Apps Script editor, click on the **Triggers** icon (the alarm clock icon on the left).
+   * Click on **Add Trigger**.
+   * Select the main function, set "Event source" to **From form** and "Event type" to **On form submit**.
+6. **Authorization**: Manually run any function from the script for the first time to grant the necessary permissions to Google Workspace (Gmail, Drive, Sheets).
 
-> **Nota Tecnica**: Durante la configurazione del template HTML, ricorda che la logica di iterazione per la lista dei presidi è impostata per utilizzare la variabile **x** nel ciclo `for`. Se il numero massimo di righe dovesse cambiare, aggiorna il limite della variabile `totaleRighe` all'interno del file `modello.html`.
+> **Technical Note**: During the HTML template configuration, remember that the iteration logic for the list of facilities is set to use the variable **x** in the `for` loop. If the maximum number of rows should change, update the limit of the `totaleRighe` variable inside the `modello.html` file.
 
-## 🏗️ Ingegneria e Crescita
-In questo progetto, l'Intelligenza Artificiale ha avuto un ruolo chiave come vero e proprio strumento di studio, aiutandomi tantissimo nel definire il codice esatto per il perfezionamento del modello HTML. Partendo da problemi reali, sto applicando le mie conoscenze teoriche, supportato dall'AI per estendere le mie capacità verso sfide che, per ora, sono più grandi di me.
+## 🏗️ Engineering and Growth
+In this project, Artificial Intelligence played a key role as a genuine study tool, greatly assisting me in defining the exact code to refine the HTML template. Starting from real-world problems, I am applying my theoretical knowledge, supported by AI, to expand my capabilities toward challenges that, for now, are bigger than me.
 
-Attualmente mi sto focalizzando sulla comprensione della logica generale per poi analizzare i dettagli più ostici del codice. Nel prossimo futuro, conto di migliorare le mie competenze tecniche partendo da progetti meno complessi, riducendo significativamente l'approccio AI-assisted.
+Currently, I am focusing on understanding the overall logic before diving into the trickier details of the code. In the near future, I plan to improve my technical skills by starting with less complex projects, significantly reducing the AI-assisted approach.
 
-Mentre approfondisco lo studio delle architetture Full Stack al Politecnico di Bari, poter testare sul campo come la programmazione risolva problemi aziendali concreti è una soddisfazione enorme.
+While I deepen my study of Full Stack architectures at the Polytechnic University of Bari, being able to test in the field how programming solves concrete business problems brings immense satisfaction.
+
+---
+
+## 👨‍💻 Author
+
+**Giuseppe Fuzio**
+*Engineering Student - Polytechnic University of Bari*
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue)](https://www.linkedin.com/in/giuseppe-fuzio)
