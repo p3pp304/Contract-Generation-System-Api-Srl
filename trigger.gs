@@ -3,7 +3,11 @@ function inviaContratto(e) {
   
   try {
     var risposte = e.namedValues;
-    var getDato = function(nome) { return risposte[nome] ? risposte[nome][0] : ""; };
+    var getDato = function(nome) { if (risposte[nome]) {
+                                    return risposte[nome][0]; // Se c'è la risposta, dammi il testo pulito
+                                  } else {
+                                    return "";                // Altrimenti non scriverci niente
+                                  }};
 
     // --- 1. GESTIONE CALCOLI ---
     var importoInput = getDato("Importo"); 
