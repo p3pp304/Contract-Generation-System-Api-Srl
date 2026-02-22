@@ -11,7 +11,8 @@ function inviaContratto(e) {
 
     // --- 1. GESTIONE CALCOLI ---
     var importoInput = getDato("Importo"); 
-    var importoClean = importoInput.replace('€', '').replace(',', '.').trim();
+    // Rimuove la € e gli eventuali punti delle migliaia, poi converte la virgola in punto
+    var importoClean = importoInput.replace('€', '').replace(/\./g, '').replace(',', '.').trim();
     var importoNum = parseFloat(importoClean);
     if (isNaN(importoNum)) { importoNum = 0; }
 
